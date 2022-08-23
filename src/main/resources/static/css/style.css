@@ -1,0 +1,71 @@
+ body{
+    background-color: aliceblue;
+    /* margin-top: 90px; */
+} 
+.paddings{
+    padding-top: 100px;
+}
+.icons{
+    font-size: 25px;
+    font-weight: 900;
+    color: #fff;
+}
+#myChart{
+    width:100%;
+    max-width: 800px;
+}
+
+.cstm-height-card{
+    height: 180px;
+}
+.cardhovers {
+    transition: transform 0.2s;
+}
+
+.cardhovers:hover {
+    transform: translateX(5px);
+}
+
+.dash-cardhovers{
+    transition: transform 0.2s;
+}
+
+.dash-cardhovers:hover {
+    transform: translateY(-5px);
+}
+.cricles{
+    width: 45px;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+.cricles:hover{
+    width: 45px;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #E4F2E7;
+    border-radius: 50%;
+}
+
+.cstm-height-card{
+    width: 100%;
+    height: 200px;
+}
+
+
+* {
+    box-sizing: border-box;
+}
+
+.banners {
+    height: 100vh;
+}
+
+.showandshading {
+    border-radius: 8px 8px 0px 0px;
+    box-shadow: 3px 3px 20px #ddd;
+}
