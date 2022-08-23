@@ -1,7 +1,12 @@
 package com.ai.lms.service;
 
+import com.ai.lms.entity.Batch;
 import com.ai.lms.entity.User;
+import com.ai.lms.entity.User.Role;
 import com.ai.lms.repository.UserRepository;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
@@ -72,4 +77,30 @@ public class UserService implements UserDetailsService {
             .build();
         }
     }
+
+	public void studentCreate(User user, int batchId) {
+		user.setRole(Role.Student);
+		user.setPassword(passwordEncoder.encode(user.getEmail()));
+		user.setBatch(new Batch());
+		user.getBatch().setId(batchId);
+		userRepo.save(user);
+	}
+
+	public List<User> findByBatchIdStudent(int batchId) {
+		return userRepo.findByBatchId(batchId).stream().filter(a -> a.getRole().equals(Role.Student)).toList();
+	}
+	
+	public List<User> findByBatchIdTeacher(int batchId) {
+		return userRepo.findByBatchId(batchId).stream().filter(a -> a.getRole().equals(Role.Teacher)).toList();
+	}
+
+	public List<User> findAllTeacher() {
+		return userRepo.findAll().stream().filter(a -> a.getRole().equals(Role.Teacher)).toList();
+	}
+
+	public void createTeacher(User teacher) {
+		teacher.setRole(Role.Student);
+		teacher.setPassword(passwordEncoder.encode(teacher.getEmail()));
+		userRepo.save(teacher);
+	}
 }

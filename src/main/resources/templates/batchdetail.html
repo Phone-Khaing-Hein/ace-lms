@@ -12,7 +12,7 @@
 
     <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
     <!-- custom css -->
-    <link rel="stylesheet" type="text/css" th:href="@{resources/css/style.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/style.css}">
     <!-- jquery-ui -->
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/base/jquery-ui.min.css">
 </head>
@@ -24,7 +24,7 @@
 
 <body style="background-color: rgba(54, 162, 235, 0.2);">
     <div th:replace="fragments/components :: admin-header"></div>
-    <section class="container mb-3 mt-5 pt-5">
+    <section class="container mb-3">
         <div class="row paddings">
             <div class="">
                 <div class="text-center">
@@ -81,20 +81,27 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <form th:action="@{/student/create}" method="post" id="studentCreateForm">
                                         <tr>
-                                            <td><input type="text" name="id" placeholder="Enter Student ID" id="id"
-                                                    class="form-control" /></td>
-                                            <td><input type="text" name="name" placeholder="Enter Student Name"
-                                                    id="name" class="form-control" /></td>
-                                            <td><input type="email" name="email" placeholder="Enter Student Email"
-                                                    id="email" class="form-control" /></td>
+                                        <form th:action="@{/admin/student/create}" method="post" id="studentCreateForm" th:object="${student}">
+                                        	<input type="hidden" name="batchId" th:value="${param.batchId}" />
+                                            <td><input type="text" th:field="*{loginId}" placeholder="Enter Student ID" id="id"
+                                                    class="form-control" />
+                                            	<span th:errors="*{loginId}" class="text-danger"></span>
+                                            </td>
+                                            <td><input type="text" th:field="*{name}" placeholder="Enter Student Name"
+                                                    id="name" class="form-control" />
+                                                    <span th:errors="*{name}" class="text-danger"></span>
+                                            </td>
+                                            <td><input type="email" th:field="*{email}" placeholder="Enter Student Email"
+                                                    id="email" class="form-control" />
+                                                    <span th:errors="*{email}" class="text-danger"></span>
+                                            </td>
                                             <td><button class="btn btn-outline-dark" type="submit"><i
                                                         class="fas fa-user-plus"></i></button></td>
+                                         </form>
                                         </tr>
-                                    </form>
                                     <tr th:each="s : ${students}">
-                                        <th scope="row" th:text="${s.id}"></th>
+                                        <th scope="row" th:text="${s.loginId}"></th>
                                         <td th:text="${s.name}"></td>
                                         <td th:text=${s.email}></td>
                                         <td>
@@ -122,7 +129,6 @@
                             <table class="table table-striped display" id="teacher">
                                 <thead>
                                     <tr>
-                                        <th scope="col">#</th>
                                         <th scope="col">Teacher ID</th>
                                         <th scope="col">Teacher Name</th>
                                         <th scope="col">Email</th>
@@ -130,24 +136,13 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>T001</td>
-                                        <td>Mary</td>
-                                        <td>mary@gmail.com</td>
+                                    <tr th:each="teacher : ${teachers}">
+                                        <td th:text="${teacher.loginId}"></td>
+                                        <td th:text="${teacher.name}"></td>
+                                        <td th:text="${teacher.email}"></td>
                                         <td>
                                             <a href=""><i class="fas fa-user-edit"></i></a>
                                             <a href=""><i class="fas fa-trash-alt text-danger  ms-3"></i></a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td>T002</td>
-                                        <td>jenny</td>
-                                        <td>jenny@gmail.com</td>
-                                        <td>
-                                            <a href=""><i class="fas fa-user-edit"></i></a>
-                                            <a href=""><i class="fas fa-trash-alt text-danger ms-3"></i></a>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -166,11 +161,7 @@
                                     </div>
                                     <div class="modal-body">
                                         <select class="form-select me-2" aria-label="Disabled select example" multiple>
-                                            <option value="1">Daw Moyee Ko</option>
-                                            <option value="2">Daw May Zwe</option>
-                                            <option value="2">Daw Htay</option>
-                                            <option value="2">Daw Kalyar</option>
-                                            <option value="3">Others</option>
+                                            <option th:each="teacher : ${allTeachers}" th:value="${teacher.loginId}" th:text="${teacher.name}"></option>
                                         </select>
                                     </div>
                                     <div class="modal-footer">
@@ -457,18 +448,18 @@
             $('#schedule').DataTable();
         });
 
-        document.getElementById('studentCreateForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            let id = document.getElementById('id').value;
-            let name = document.getElementById('name').value;
-            let email = document.getElementById('email').value;
-            let student = {
-                id: this.id,
-                name: this.name,
-                email: this.email
-            }
+        //document.getElementById('studentCreateForm').addEventListener('submit', (e) => {
+          //  	e.preventDefault();
+          //	let id = document.getElementById('id').value;
+          //	let name = document.getElementById('name').value;
+          //    let email = document.getElementById('email').value;
+          //    let student = {
+          //      id: this.id,
+            //    name: this.name,
+              //  email: this.email
+            //}
 
-        });
+       // });
     </script>
 </body>
 

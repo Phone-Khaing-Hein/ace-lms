@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ai.lms.entity.Batch;
 import com.ai.lms.entity.Course;
+import com.ai.lms.entity.User;
 import com.ai.lms.service.BatchService;
 import com.ai.lms.service.CourseService;
 import com.ai.lms.service.UserService;
@@ -54,8 +55,9 @@ public class BatchController {
 	
 	@GetMapping("detail")
 	public String detail(@RequestParam int batchId,ModelMap m) {
-//		m.put("students", sService.findByBatchId(batchId));
-		m.put("teachers", m);
+		m.put("students", sService.findByBatchIdStudent(batchId));
+		m.put("teachers", sService.findByBatchIdTeacher(batchId));
+		m.put("allTeachers", sService.findAllTeacher());
 		return "batchdetail";
 	}
 	
@@ -68,5 +70,10 @@ public class BatchController {
     List<Course> courses() {
     	return cService.findAll();
     }
+	
+	@ModelAttribute("student")
+	User student() {
+		return new User();
+	}
 }
 
