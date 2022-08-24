@@ -47,7 +47,7 @@ public class UserService implements UserDetailsService {
             var teacher = new User();
             teacher.setLoginId("TCH001");
             teacher.setName("May Zwei");
-            teacher.setEmail("admin@gmail.com");
+            teacher.setEmail("teacher@gmail.com");
             teacher.setPassword(passwordEncoder.encode("teacher"));
             teacher.setRole(User.Role.Teacher);
             userRepo.save(teacher);
@@ -99,8 +99,14 @@ public class UserService implements UserDetailsService {
 	}
 
 	public void createTeacher(User teacher) {
-		teacher.setRole(Role.Student);
+		teacher.setRole(Role.Teacher);
 		teacher.setPassword(passwordEncoder.encode(teacher.getEmail()));
 		userRepo.save(teacher);
+	}
+	
+	public void createStudent(User student) {
+		student.setRole(Role.Student);
+		student.setPassword(passwordEncoder.encode(student.getEmail()));
+		userRepo.save(student);
 	}
 }
