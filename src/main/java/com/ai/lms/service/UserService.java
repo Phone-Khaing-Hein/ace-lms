@@ -6,6 +6,7 @@ import com.ai.lms.entity.User.Role;
 import com.ai.lms.repository.UserRepository;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -85,17 +86,17 @@ public class UserService implements UserDetailsService {
 		user.getBatch().setId(batchId);
 		userRepo.save(user);
 	}
-
+	
 	public List<User> findByBatchIdStudent(int batchId) {
-		return userRepo.findByBatchId(batchId).stream().filter(a -> a.getRole().equals(Role.Student)).toList();
+		return userRepo.findByBatchId(batchId).stream().filter(a -> a.getRole().equals(Role.Student)).collect(Collectors.toList());
 	}
 	
 	public List<User> findByBatchIdTeacher(int batchId) {
-		return userRepo.findByBatchId(batchId).stream().filter(a -> a.getRole().equals(Role.Teacher)).toList();
+		return userRepo.findByBatchId(batchId).stream().filter(a -> a.getRole().equals(Role.Teacher)).collect(Collectors.toList());
 	}
 
 	public List<User> findAllTeacher() {
-		return userRepo.findAll().stream().filter(a -> a.getRole().equals(Role.Teacher)).toList();
+		return userRepo.findAll().stream().filter(a -> a.getRole().equals(Role.Teacher)).collect(Collectors.toList());
 	}
 
 	public void createTeacher(User teacher) {
