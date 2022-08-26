@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{layouts/LYU01 ::layout(~{::main})}" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<main role="main">
+    <header th:fragment="navigation">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow ">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="teacherdashboard.html"><img
+                        src="https://aceinspiration.com/wp-content/themes/acinspiration/images/logo.PNG" alt=""
+                        width="160px"></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <h5 class="role" style="color: lightslategray;">INSTRUCTOR</h5>
+                <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarSupportedContent">
+                    <div class="menu">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="teacherdashboard.html">Dashboard</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="batchview.html">Batch Management</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="nav-item dropdown">
+                        <a class="nav-link me-5 " href="#" data-bs-toggle="dropdown">
+                            <img th:src="@{/resources/img/default-profile.png}"
+                                 class="rounded-circle cricles" width="40px" alt="">
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="teacher-profile.html">My Profile</a></li>
+                            <li><a class="dropdown-item" href="teacherlogin.html">Log Out</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div th:replace="fragments/TCDB01 ::teacher-dashboard"></div>
+</main>
+</body>
+</html>

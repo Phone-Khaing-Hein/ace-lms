@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Entity
 @Data
@@ -21,6 +22,7 @@ public class User {
     @NotBlank(message = "User email is required!")
     private String email;
     @Column(nullable = false)
+    @Size(min = 6)
     private String password;
     @Enumerated(EnumType.STRING)
     private Role role;
