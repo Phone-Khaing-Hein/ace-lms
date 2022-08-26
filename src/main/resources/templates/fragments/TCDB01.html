@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+    <section th:fragment="teacher-dashboard">
+        <div class="container" style="padding-top: 100px">
+            <div class="row ms-3 gx-2">
+                <div class="col-md-3 col-sm-12 mb-3">
+                    <a href="teacher-courselist.html" class="text-white text-decoration-none">
+                        <div class="card bg-warning p-2 dash-cardhovers">
+                            <div class="card-body d-flex justify-content-between">
+                                <span class="h4"><i class="fas fa-book me-2"></i>Courses</span>
+                                <p class="mt-1">6</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-12 mb-3">
+                    <a href="teacher-batchlist.html" class="text-white text-decoration-none">
+                        <div class="card bg-success p-2 dash-cardhovers">
+                            <div class="card-body d-flex justify-content-between">
+                                <span class="h4"><i class="fas fa-user-friends me-2"></i>Batches</span>
+                                <p class="mt-1">Total : 6</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-md-3 col-sm-12 mb-3">
+                    <a href="groupchat.html" class="text-white text-decoration-none">
+                        <div class="card bg-primary p-2 dash-cardhovers">
+                            <div class="card-body d-flex justify-content-between">
+                                <span class="h4"><i class="fas fa-comment me-2"></i>Chats</span>
+                                <p class="mt-1">10</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-12 mb-3">
+                    <a href="teacher-examlist.html" class="text-white text-decoration-none">
+                        <div class="card bg-secondary p-2 dash-cardhovers">
+                            <div class="card-body d-flex justify-content-between">
+                                <span class="h4"><i class="fas fa-laptop-code me-2"></i>Exams</span>
+                                <p class="mt-1">6</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="row ms-3 gx-2">
+                <div class="col-md-7 col-sm-12 mb-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <h5 class="text-muted ms-3">Number of Students per current opening Batches</h5>
+                                <a href=""><i class="fas fa-ellipsis-v fs-6 text-muted"></i></a>
+                            </div>
+                            <canvas id="myChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5 col-sm-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <h5 class="text-muted ms-3">Comments Notification</h5>
+                                <a href=""><i class="fas fa-ellipsis-v fs-6 text-muted"></i></a>
+                            </div>
+                            <hr>
+                            <div class="d-flex justify-content-center align-items-center flex-column">
+                                <p class="text-warning fw-bold">New Comments Found</p>
+                                <a href="teacher-comments.html" class="text-decoration-none text-danger">
+                                    <img th:src="@{/resources/img/comment.svg}"
+                                         width="250" alt="">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <script type="text/javascript">
+        var xValues = ["OJT Batch-4", "JWD Batch-28", "PFC Batch-52", "ASP.Net Batch-7", "OJT Batch-2", "PFC Batch-67", "OJT Batch-4", "JWD Batch-28", "PFC Batch-52", "ASP.Net Batch-7", "OJT Batch-2", "PFC Batch-67"];
+        var yValues = [55, 49, 44, 24, 15, 9, 9, 15, 24, 44, 49, 55];
+        var barColors = [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)'
+        ];
+        var borderColors = [
+            'rgba(255,99,132,1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)',
+            'rgba(255,99,132,1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)'
+        ];
+
+        new Chart("myChart", {
+            type: "bar",
+            data: {
+                labels: xValues,
+                datasets: [{
+                    backgroundColor: barColors,
+                    borderColor: borderColors,
+                    borderWidth: 1,
+                    data: yValues
+                }]
+            },
+            options: {
+                title: {
+                    display: true,
+                },
+                legend: { display: false },
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }],
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

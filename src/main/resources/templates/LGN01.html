@@ -8,7 +8,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="./libs/fontawesomepro/css/all.min.css">
+
+    <!-- font-awesome css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+          integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         .cardhovers {
             transition: transform 0.2s;
@@ -28,14 +32,15 @@
     </style>
 </head>
 
-<body style="height: 100vh;overflow: hidden; font-family: 'Roboto Slab', serif;">
+<body style="height: 100vh;overflow: hidden; font-family: 'Roboto Slab', serif; background-color: lightgrey">
 <section>
     <div class="container text-capitalize py-5">
         <div class="row gx-2 justify-content-center align-items-center" style="height: 80vh; overflow: hidden;">
             <div class="col-md-4 col-sm-12">
-                <div class="card">
-                    <div class="card-header bg-primary text-white">
-                        <p class="text-center fs-4 mb-0 py-2">student login</p>
+                <div class="card shadow">
+                    <div class="card-header bg-light text-center">
+                        <img th:src="@{/resources/img/ACE.png}"
+                              width="30%" alt="">
                     </div>
                     <div th:if="${loginError}" class="alert alert-danger" role="alert">
                         <h6>Wrong Username or Password</h6>
@@ -43,24 +48,22 @@
                     <div class="card-body">
                         <form th:action="@{/login}" method="post">
                             <div class="form-group mb-3">
-                                <label class="form-label" for="studentId">Student ID</label>
-                                <input type="text" name="username" id="studentId" class="form-control" placeholder="Enter Student ID" >
+                                <label class="form-label mb-1">User Name</label>
+                                <input type="text" class="form-control" name="username"
+                                       placeholder="User ID">
                             </div>
-                            <div class="form-group mb-3">
-                                <label class="form-label" for="password">Password</label>
-                                <input type="password" id="password" name="password" class="form-control"
-                                       placeholder="Enter password" />
+                            <label class="form-label d-block mb-1" for="password">Password</label>
+                            <div class="input-group mb-2">
+                                <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                                <span class="input-group-text text-muted" id="eyes"><i class="fas fa-eye-slash"></i></span>
                             </div>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="form-check mb-0">
-                                    <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3"/>
-                                    <label class="form-check-label" for="form2Example3">
-                                        Remember me
-                                    </label>
-                                </div>
+                            <div class="form-check my-3">
+                                <input type="checkbox" class="form-check-input" id="remember-me" name="remember-me">
+                                <label for="remember-me" class="form-check-label">Remember Me</label>
                             </div>
-                            <div class="btn-group mt-3">
-                                <button type="submit" class="btn btn-primary btn-sm">Sign In</button>
+
+                            <div class="btn-group my-3 d-flex justify-content-end">
+                                <button type="submit" class="btn btn-primary btn-sm">Login</button>
                             </div>
                         </form>
                     </div>
@@ -75,6 +78,23 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
         integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
         crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#eyes").click(function () {
+            var getpasstype = $("#password").attr("type");
+
+            if (getpasstype === "password") {
+                getpasstype = "text";
+                $(this).html("<i class='fas fa-eye'></i>");
+            } else {
+                getpasstype = "password";
+                $(this).html("<i class='fas fa-eye-slash'></i>");
+            }
+            $('#password').attr("type", getpasstype);
+        });
+    });
+</script>
 </body>
 
 </html>

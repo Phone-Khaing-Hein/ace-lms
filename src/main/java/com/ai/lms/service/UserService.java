@@ -18,13 +18,15 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@Service
+import javax.annotation.Resource;
+
+@Service("MyUserDetailsServiceImpl")
 public class UserService implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepo;
 
-    @Autowired
+    @Resource
     private PasswordEncoder passwordEncoder;
 
     public User saveUser(User user) {

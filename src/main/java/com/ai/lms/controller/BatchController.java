@@ -65,6 +65,11 @@ public class BatchController {
 	Batch batch() {
 		return new Batch();
 	}
+
+	@ModelAttribute("batches")
+	List<Batch> batches() {
+		return service.findAll();
+	}
 	
 	@ModelAttribute("courses")
     List<Course> courses() {
