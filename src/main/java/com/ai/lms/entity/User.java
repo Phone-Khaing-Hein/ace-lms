@@ -15,17 +15,25 @@ public class User {
     @Column(length = 10,name = "login_id")
     @NotBlank(message = "User Login Id is required!")
     private String loginId;
+
     @Column(nullable = false)
     @NotBlank(message = "Username is required!")
     private String name;
+
     @Column(nullable = false)
     @NotBlank(message = "User email is required!")
     private String email;
+
     @Column(nullable = false)
     @Size(min = 6)
     private String password;
+
+    @Column(nullable = false)
+    private int status;
+
     @Enumerated(EnumType.STRING)
     private Role role;
+
 	@ManyToOne
 	private Batch batch;
 

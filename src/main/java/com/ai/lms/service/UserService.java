@@ -92,6 +92,10 @@ public class UserService implements UserDetailsService {
 	public List<User> findByBatchIdStudent(int batchId) {
 		return userRepo.findByBatchId(batchId).stream().filter(a -> a.getRole().equals(Role.Student)).collect(Collectors.toList());
 	}
+
+    public List<User> findStudentByBatchIdAndStatus(int batchId, int status){
+        return userRepo.findByBatchIdAndStatus(batchId, status).stream().filter(a -> a.getRole().equals(Role.Student)).collect(Collectors.toList());
+    }
 	
 	public List<User> findByBatchIdTeacher(int batchId) {
 		return userRepo.findByBatchId(batchId).stream().filter(a -> a.getRole().equals(Role.Teacher)).collect(Collectors.toList());
@@ -112,4 +116,13 @@ public class UserService implements UserDetailsService {
 		student.setPassword(passwordEncoder.encode(student.getEmail()));
 		userRepo.save(student);
 	}
+
+    public User findByStudentId(String stuId){
+        return userRepo.findByLoginId(stuId);
+    }
+
+    public boolean stuIdExists(String id){
+        return userRepo.existsById(id);
+    }
+
 }
