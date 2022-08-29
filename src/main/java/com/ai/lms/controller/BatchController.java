@@ -55,7 +55,13 @@ public class BatchController {
 	
 	@GetMapping("detail")
 	public String detail(@RequestParam int batchId,ModelMap m) {
-		m.put("students", sService.findByBatchIdStudent(batchId));
+		// List<User> studentList = sService.findByBatchIdStudent(batchId);
+		// int status = 0;
+		// for(User student: studentList){
+		// 	if(student.getStatus() == 0)
+
+		// }
+		m.put("students", sService.findStudentByBatchIdAndStatus(batchId, 0));
 		m.put("teachers", sService.findByBatchIdTeacher(batchId));
 		m.put("allTeachers", sService.findAllTeacher());
 		return "batchdetail";
@@ -64,6 +70,11 @@ public class BatchController {
 	@ModelAttribute("batch")
 	Batch batch() {
 		return new Batch();
+	}
+
+	@ModelAttribute("batches")
+	List<Batch> batches() {
+		return service.findAll();
 	}
 	
 	@ModelAttribute("courses")

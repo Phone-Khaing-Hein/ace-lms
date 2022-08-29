@@ -6,6 +6,7 @@ import com.ai.lms.entity.User.Role;
 import com.ai.lms.repository.UserRepository;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -17,13 +18,15 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@Service
+import javax.annotation.Resource;
+
+@Service("MyUserDetailsServiceImpl")
 public class UserService implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepo;
 
-    @Autowired
+    @Resource
     private PasswordEncoder passwordEncoder;
 
     public User saveUser(User user) {
@@ -85,17 +88,21 @@ public class UserService implements UserDetailsService {
 		user.getBatch().setId(batchId);
 		userRepo.save(user);
 	}
-
+	
 	public List<User> findByBatchIdStudent(int batchId) {
-		return userRepo.findByBatchId(batchId).stream().filter(a -> a.getRole().equals(Role.Student)).toList();
+		return userRepo.findByBatchId(batchId).stream().filter(a -> a.getRole().equals(Role.Student)).collect(Collectors.toList());
 	}
+
+    public List<User> findStudentByBatchIdAndStatus(int batchId, int status){
+        return userRepo.findByBatchIdAndStatus(batchId, status).stream().filter(a -> a.getRole().equals(Role.Student)).collect(Collectors.toList());
+    }
 	
 	public List<User> findByBatchIdTeacher(int batchId) {
-		return userRepo.findByBatchId(batchId).stream().filter(a -> a.getRole().equals(Role.Teacher)).toList();
+		return userRepo.findByBatchId(batchId).stream().filter(a -> a.getRole().equals(Role.Teacher)).collect(Collectors.toList());
 	}
 
 	public List<User> findAllTeacher() {
-		return userRepo.findAll().stream().filter(a -> a.getRole().equals(Role.Teacher)).toList();
+		return userRepo.findAll().stream().filter(a -> a.getRole().equals(Role.Teacher)).collect(Collectors.toList());
 	}
 
 	public void createTeacher(User teacher) {
@@ -109,4 +116,13 @@ public class UserService implements UserDetailsService {
 		student.setPassword(passwordEncoder.encode(student.getEmail()));
 		userRepo.save(student);
 	}
+
+    public User findByStudentId(String stuId){
+        return userRepo.findByLoginId(stuId);
+    }
+
+    public boolean stuIdExists(String id){
+        return userRepo.existsById(id);
+    }
+
 }

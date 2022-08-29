@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:th="http://www.thymeleaf.org">
+<html lang="en" th:fragment="layout(content)" xmlns:th="http://www.thymeleaf.org">
 <head th:insert="fragments/HED01 :: head"></head>
 <body>
 <div class="container-fluid">
-    <div layout:fragment="content"></div>
+    <div th:replace="${content}"></div>
 </div>
 </body>
 </html>
